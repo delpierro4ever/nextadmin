@@ -1,5 +1,7 @@
+import Image from 'next/image';
+import MenuLink from './menulink/MenuLink';
 import styles from './sidebar.module.css';
-import { MdDashboard, MdSupervisedUsersCircle, MdattachMoney, MdWork, MdAnalytics, MdPeople, MdShoppingBag, MdOutlineSettings, MdHelpCenter, MdLogout } from 'react-icons'
+import {MdDashboard, MdOutlineSupervisedUserCircle, MdAccountBalanceWallet, MdWork, MdAnalytics, MdPeople, MdShoppingBag, MdOutlineSettings, MdHelpCenter, MdLogout } from 'react-icons/md'
 
 const menuItems = [
   {
@@ -13,7 +15,7 @@ const menuItems = [
       {
         title: 'Users',
         path: '/dashboard/users',
-        icon: <MdSupervisedUsersCircle />,
+        icon: <MdOutlineSupervisedUserCircle />,
       },
       {
         title: 'Products',
@@ -23,7 +25,7 @@ const menuItems = [
       {
         title: 'Transactions',
         path: '/dashboard/transactions',
-        icon: <MdattachMoney />,
+        icon: <MdAccountBalanceWallet />,
       }
     ]
   },
@@ -71,12 +73,28 @@ const menuItems = [
 
 const Sidebar = () => {
   return (
+
     <div className={styles.container}>
-      <ul>
+
+      {/*User Information*/}
+
+      <div className={styles.user}>
+        <Image src="/noavatar.png" alt='' width="50" height="50" className={styles.userImage} />
+        <div className={styles.userDetails}>
+        <span className={styles.username}>John Doe</span>
+        <span className={styles.userTitle}>Administrator</span>
+        </div>
+      </div>
+
+      {/*Menu List*/}
+      <ul className={styles.list}>
         {menuItems.map((item, index) => {
           return (
             <li key={index}>
-              <span className={styles.title}>{item.title}</span>
+              <span className={styles.cat}>{item.title}</span>
+
+              {item.list.map((cat, index) =><MenuLink item={cat} key={index} />)               
+              }
             </li>
           )
         })}
